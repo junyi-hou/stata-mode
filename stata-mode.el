@@ -72,5 +72,8 @@
 
   (run-mode-hooks 'stata-mode-hook))
 
+(define-derived-mode jupyter-stata-mode stata-mode "Jupyter-Stata"
+  "This allows `org-mode' to correctly highlights `jupyter-stata' src blocks without using `ess-mode'. To do so, please install `jupyter-emacs' package to enable `ob-jupyter', and the stata kernel (pip install stata-kernel --user) to enable jupyter to talk to stata kernel.")
+
 (provide 'stata-mode)
 ;;; stata-mode.el ends here
