@@ -54,6 +54,7 @@
 ;; stata-mode-map: define keymaps
 (defvar stata-mode-map (make-sparse-keymap) "Keymap for `stata-mode'.")
 
+;;;###autoload
 (define-derived-mode stata-mode prog-mode "Stata"
   "Major mode for editing do and ado files.
 
@@ -62,7 +63,7 @@
   (setq-local comment-start "// ")
   (setq-local comment-start-skip "\\(//+\\|/\\*+\\)\\s *")
   (setq-local comment-end "")
-  (setq-local comment-use-syntax t)
+  ;; (setq-local comment-use-syntax t)
   (setq-local comment-multi-line nil)
   (setq-local parse-sexp-ignore-comments t)
   (setq-local paragraph-ignore-fill-prefix t)
@@ -74,6 +75,7 @@
 
   (run-mode-hooks 'stata-mode-hook))
 
+;;;###autoload
 (define-derived-mode jupyter-stata-mode stata-mode "Jupyter-Stata"
   "This allows `org-mode' to correctly highlights `jupyter-stata' src blocks without using `ess-mode'. To do so, please install `jupyter-emacs' package to enable `ob-jupyter', and the stata kernel (pip install stata-kernel --user) to enable jupyter to talk to stata kernel.")
 
