@@ -25,30 +25,31 @@
 (add-to-list 'auto-mode-alist '("\\.ado\\'" . stata-mode))
 
 ;; syntax table
-(defvar stata-mode-syntax-table
-  (let ((tbl (make-syntax-table)))
-    (modify-syntax-entry ?\\ "." tbl) ;nullify escape meaning
-    (modify-syntax-entry ?\$ "." tbl)
-    (modify-syntax-entry ?` "(\'" tbl)
-    (modify-syntax-entry ?\' ")`" tbl)
-    (modify-syntax-entry ?+ "." tbl)
-    (modify-syntax-entry ?- "." tbl)
-    (modify-syntax-entry ?= "." tbl)
-    (modify-syntax-entry ?% "." tbl)
-    (modify-syntax-entry ?< "." tbl)
-    (modify-syntax-entry ?> "." tbl)
-    (modify-syntax-entry ?& "." tbl)
-    (modify-syntax-entry ?| "." tbl)
-    (modify-syntax-entry ?~ "." tbl)
-    ;;--------- begin cut-and-paste from  lisp/progmodes/c-langs.el
-    (modify-syntax-entry ?/  ". 124b" tbl)
-    (modify-syntax-entry ?*  ". 23n"   tbl)
-    (modify-syntax-entry ?\n "> b"  tbl)
-    ;; Give CR the same syntax as newline, for selective-display
-    (modify-syntax-entry ?\^m "> b" tbl)
-    ;;--------- end cut-and-paste ------------------
-    tbl)
-  "Syntax table used while in `stata-mode'.")
+(setq stata-mode-syntax-table
+      (let ((tbl (make-syntax-table)))
+        (modify-syntax-entry ?\\ "." tbl) ; nullify escape meaning
+        (modify-syntax-entry ?\$ "." tbl)
+        (modify-syntax-entry ?` "(\'" tbl)
+        (modify-syntax-entry ?\' ")`" tbl)
+        (modify-syntax-entry ?+ "_" tbl)
+        (modify-syntax-entry ?- "_" tbl)
+        (modify-syntax-entry ?= "_" tbl)
+        (modify-syntax-entry ?% "." tbl)
+        (modify-syntax-entry ?< "." tbl)
+        (modify-syntax-entry ?> "." tbl)
+        (modify-syntax-entry ?& "." tbl)
+        (modify-syntax-entry ?| "." tbl)
+        (modify-syntax-entry ?~ "." tbl)
+        (modify-syntax-entry ?_ "w" tbl)
+        ;;--------- begin cut-and-paste from  lisp/progmodes/c-langs.el
+        (modify-syntax-entry ?/  ". 124b" tbl)
+        (modify-syntax-entry ?*  ". 23n"   tbl)
+        (modify-syntax-entry ?\n "> b"  tbl)
+        ;; Give CR the same syntax as newline, for selective-display
+        (modify-syntax-entry ?\^m "> b" tbl)
+        ;;--------- end cut-and-paste ------------------
+        tbl))
+      "Syntax table used while in `stata-mode'.")
 
 ;; stata-mode-map: define keymaps
 (defvar stata-mode-map (make-sparse-keymap) "Keymap for `stata-mode'.")
@@ -58,11 +59,12 @@
 
 \\{stata-mode-map}"
 
-  (setq-local comment-column 40)
-  (setq-local comment-end " \*/")
-  (setq-local comment-start "/\* ")
-  (setq-local comment-start-skip "/\\*+ *")
+  (setq-local comment-start "// ")
+  (setq-local comment-start-skip "\\(//+\\|/\\*+\\)\\s *")
+  (setq-local comment-end "")
   (setq-local comment-use-syntax t)
+  (setq-local comment-multi-line nil)
+  (setq-local parse-sexp-ignore-comments t)
   (setq-local paragraph-ignore-fill-prefix t)
   (setq-local paragraph-separate (concat  "[ \t\f]*$\\|" page-delimiter))
   (setq-local paragraph-start (concat "[ \t\f]*$\\|" page-delimiter))
