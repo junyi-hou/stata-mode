@@ -27,27 +27,30 @@
 ;; syntax table
 (defvar stata-mode-syntax-table
   (let ((tbl (make-syntax-table)))
-    (modify-syntax-entry ?\\ "." tbl) ; nullify escape meaning
-    (modify-syntax-entry ?\$ "." tbl)
+    (modify-syntax-entry ?\\ "." tbl) ;; nullify escape meaning
+
+    ;; ` ' is a pair
     (modify-syntax-entry ?` "(\'" tbl)
     (modify-syntax-entry ?\' ")`" tbl)
-    (modify-syntax-entry ?+ "_" tbl)
-    (modify-syntax-entry ?- "_" tbl)
-    (modify-syntax-entry ?= "_" tbl)
+
+    ;; operators
+    (modify-syntax-entry ?\$ "." tbl)  ;; start of a macro
+    (modify-syntax-entry ?+ "." tbl)
+    (modify-syntax-entry ?- "." tbl)
+    (modify-syntax-entry ?= "." tbl)
     (modify-syntax-entry ?% "." tbl)
     (modify-syntax-entry ?< "." tbl)
     (modify-syntax-entry ?> "." tbl)
     (modify-syntax-entry ?& "." tbl)
     (modify-syntax-entry ?| "." tbl)
     (modify-syntax-entry ?~ "." tbl)
-    (modify-syntax-entry ?_ "w" tbl)
-    ;;--------- begin cut-and-paste from  lisp/progmodes/c-langs.el
+    (modify-syntax-entry ?# "." tbl)  ;; interaction of fixed effects
+
+    ;; comments
     (modify-syntax-entry ?/  ". 124b" tbl)
-    (modify-syntax-entry ?*  ". 23n"   tbl)
+    (modify-syntax-entry ?*  ". 23b"   tbl)
     (modify-syntax-entry ?\n "> b"  tbl)
-    ;; Give CR the same syntax as newline, for selective-display
     (modify-syntax-entry ?\^m "> b" tbl)
-    ;;--------- end cut-and-paste ------------------
     tbl)
   "Syntax table used while in `stata-mode'.")
 
@@ -60,10 +63,7 @@
 
 \\{stata-mode-map}"
 
-  (setq-local comment-start "// ")
-  (setq-local comment-start-skip "\\(//+\\|/\\*+\\)\\s *")
-  (setq-local comment-end "")
-  ;; (setq-local comment-use-syntax t)
+  (setq-local comment-use-syntax t)
   (setq-local comment-multi-line nil)
   (setq-local parse-sexp-ignore-comments t)
   (setq-local paragraph-ignore-fill-prefix t)
